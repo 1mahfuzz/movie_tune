@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -23,8 +26,8 @@ import retrofit2.Response;
 public class NewRelease extends Fragment {
 
     RecyclerView mRecyclerView;
-    List<Integer> id;
-    List<String> poster_path;
+    List<String> id = new ArrayList<>();
+    List<String> poster_path = new ArrayList<>();
 
 
     public NewRelease() {
@@ -38,9 +41,13 @@ public class NewRelease extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_release, container, false);
         iniView(view);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-        ApiInterface apiInterface = new ApiClient().getClient().create(ApiInterface.class);
+        Log.d(MainActivity.TAG, "onCreateView: ");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MainActivity.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         Call<ApiResponse> call = apiInterface.getNewReleaseData();
         call.enqueue(new Callback<ApiResponse>() {
             @Override
@@ -48,14 +55,17 @@ public class NewRelease extends Fragment {
 
                 ApiResponse apiResponse = response.body();
                 for (int i=0; i<apiResponse.getResult().size(); i++){
-                    int list_id = apiResponse.getResult().get(i).getId();
+                    String list_id = apiResponse.getResult().get(i).getId();
                     String path = "http://image.tmdb.org/t/p/w500/"
                             +apiResponse.getResult().get(i).getPoster_path()
                             +"?api_key="+MainActivity.API_KEY;
                     id.add(list_id);
                     poster_path.add(path);
+                    Log.d(MainActivity.TAG, "onResponse: "+list_id);
                 }
-                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
+//                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
+//                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+
             }
 
             @Override

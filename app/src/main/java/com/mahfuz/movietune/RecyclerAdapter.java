@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,9 +22,9 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
 
     Context mContext;
     List<String> imageUrls = Collections.emptyList();
-    List<Integer> ids = Collections.emptyList();
+    List<String> ids = Collections.emptyList();
 
-    public RecyclerAdapter(Context context, List<Integer> id, List<String> poster_path) {
+    public RecyclerAdapter(Context context, List<String> id, List<String> poster_path) {
         this.mContext = context;
         this.ids = id;
         this.imageUrls = poster_path;
