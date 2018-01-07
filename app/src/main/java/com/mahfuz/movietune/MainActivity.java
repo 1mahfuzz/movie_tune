@@ -8,6 +8,9 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String API_KEY = "c37d3b40004717511adb2c1fbb15eda4";
+    public static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+
     TabLayout mTabLayout;
     ViewPager mViewPager;
 

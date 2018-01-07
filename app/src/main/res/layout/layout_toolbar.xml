@@ -9,7 +9,8 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="@android:color/white"
         android:textAlignment="center"
-        android:textSize="26sp"
+        android:textSize="23sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:text="MovieTune"/>
 </LinearLayout>
