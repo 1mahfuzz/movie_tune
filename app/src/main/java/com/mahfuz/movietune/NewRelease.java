@@ -63,8 +63,8 @@ public class NewRelease extends Fragment {
                     poster_path.add(path);
                     Log.d(MainActivity.TAG, "onResponse: "+list_id);
                 }
-//                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
-//                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
             }
 

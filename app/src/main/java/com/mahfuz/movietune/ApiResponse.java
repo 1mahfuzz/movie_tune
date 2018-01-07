@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ApiResponse {
 
-    private List<Result> result = new ArrayList<>();
+    private List<Result> results = new ArrayList<>();
 
     public List<Result> getResult() {
-        return result;
+        return results;
     }
 
     public void setResult(List<Result> result) {
-        this.result = result;
+        this.results = result;
     }
 
     class Result{
