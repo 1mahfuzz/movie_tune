@@ -2,9 +2,12 @@ package com.mahfuz.movietune;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,10 @@ public class DetailActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
 
     List<String> genresList = new ArrayList<>();
+    List<String> id = new ArrayList<>();
+    List<String> poster_path = new ArrayList<>();
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +88,12 @@ public class DetailActivity extends AppCompatActivity {
                 Picasso.with(getApplicationContext())
                         .load(imagePath).into(mImageView);
                 mDescriptionView.setText(result.getOverview());
-                mPopularityView.setText(""+popularity);
+                mPopularityView.setText(""+Math.ceil(popularity)+"%");
                 mTitleView.setText(result.getOriginal_title());
                 mLanguage.setText(result.getSpoken_languages().get(0).getName());
                 mGenresView.setText(genres);
                 mBudgetView.setText("$"+result.getBudget());
-                mVoteAvgView.setText(result.getVote_average());
+                mVoteAvgView.setText(""+Math.ceil(result.getVote_average()));
                 mProductionCompany.setText(result.production_companies.get(0).getName());
                 mProductionCountry.setText(result.production_countries.get(0).getName());
             }
@@ -94,6 +101,33 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SpecificData> call, Throwable t) {
 
+            }
+        });
+
+        Call<ApiResponse> call2 = apiInterface.getSimilarMovieData(movieId);
+        call2.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+
+                ApiResponse apiResponse = response.body();
+                for (int i=0; i<apiResponse.getResult().size(); i++){
+                    String list_id = apiResponse.getResult().get(i).getId();
+                    String path = "http://image.tmdb.org/t/p/w500/"
+                            +apiResponse.getResult().get(i).getPoster_path()
+                            +"?api_key="+MainActivity.API_KEY;
+                    id.add(list_id);
+                    poster_path.add(path);
+                    Log.d(MainActivity.TAG, "onResponse: "+list_id);
+                }
+                mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(),id,poster_path));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                        LinearLayoutManager.HORIZONTAL,false));
+
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.d(MainActivity.TAG, "onFailure: ");
             }
         });
     }
@@ -111,5 +145,6 @@ public class DetailActivity extends AppCompatActivity {
         mBudgetView = findViewById(R.id.budget);
         mLanguage = findViewById(R.id.language);
         mRecyclerView = findViewById(R.id.recyclerView);
+        progressBar = findViewById(R.id.loadingBar);
     }
 }

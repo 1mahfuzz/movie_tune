@@ -22,4 +22,7 @@ public interface ApiInterface {
     @GET("{movieID}?api_key="+MainActivity.API_KEY)
     Call<SpecificData> getSpecificData(@Path("movieID") String movieId);
 
+    @GET("{movieID}/similar?api_key="+MainActivity.API_KEY)
+    Call<ApiResponse> getSimilarMovieData(@Path("movieID") String movieID);
+
 }

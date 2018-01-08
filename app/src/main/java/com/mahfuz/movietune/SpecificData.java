@@ -12,13 +12,21 @@ public class SpecificData {
     String original_title;
     String backdrop_path;
     String budget;
-    String vote_average;
+    double vote_average;
     Float popularity;
     List<Genres> genres = new ArrayList<>();
     List<Language> spoken_languages = new ArrayList<>();
     String overview;
     List<Company> production_companies = new ArrayList<>();
     List<Country> production_countries = new ArrayList<>();
+
+    public double getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
+    }
 
     public String getOverview() {
         return overview;
@@ -44,13 +52,6 @@ public class SpecificData {
         this.original_title = original_title;
     }
 
-    public String getVote_average() {
-        return vote_average;
-    }
-
-    public void setVote_average(String vote_average) {
-        this.vote_average = vote_average;
-    }
 
     public String getBackdrop_path() {
         return backdrop_path;
