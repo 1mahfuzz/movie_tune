@@ -41,7 +41,11 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         getSupportActionBar().hide();
         iniView();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         String movieId = getIntent().getStringExtra("id");
         Log.d(MainActivity.TAG, "onCreate: "+movieId);
 
@@ -56,29 +60,35 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SpecificData> call, Response<SpecificData> response) {
                 SpecificData result = response.body();
-                String genres = "";
+                StringBuilder genres = new StringBuilder();
                 String imagePath = "http://image.tmdb.org/t/p/w500/"
                         +result.getBackdrop_path()
                         +"?api_key="+MainActivity.API_KEY;
-                for (int i=0; i<3 ; i++){
-                    genres += result.getGenres().get(i).getName()+",";
-                    //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
+
+                if (result.getGenres().size() < 3){
+                    for (int i=0; i<result.getGenres().size() ; i++){
+                        genres.append(result.getGenres().get(i).getName()+",");
+                        //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
+                    }
+                }else {
+                    for (int i = 0; i < 3; i++) {
+                        genres.append(result.getGenres().get(i).getName() + ",");
+                        //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
+                    }
                 }
 
-
-                double po = result.getPopularity();
-                double percentage = po/100;
-                Toast.makeText(DetailActivity.this, "P"+po+" Per"+percentage, Toast.LENGTH_LONG).show();
-                double p = Math.ceil(po);
-                String popularity = p+"%";
+                double popularity = result.getPopularity();
                 Picasso.with(getApplicationContext())
                         .load(imagePath).into(mImageView);
-                mPopularityView.setText(popularity);
+                mDescriptionView.setText(result.getOverview());
+                mPopularityView.setText(""+popularity);
                 mTitleView.setText(result.getOriginal_title());
                 mLanguage.setText(result.getSpoken_languages().get(0).getName());
                 mGenresView.setText(genres);
-                mBudgetView.setText(result.getBudget());
+                mBudgetView.setText("$"+result.getBudget());
                 mVoteAvgView.setText(result.getVote_average());
+                mProductionCompany.setText(result.production_companies.get(0).getName());
+                mProductionCountry.setText(result.production_countries.get(0).getName());
             }
 
             @Override
@@ -86,7 +96,6 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void iniView() {

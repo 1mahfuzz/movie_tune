@@ -16,6 +16,17 @@ public class SpecificData {
     Float popularity;
     List<Genres> genres = new ArrayList<>();
     List<Language> spoken_languages = new ArrayList<>();
+    String overview;
+    List<Company> production_companies = new ArrayList<>();
+    List<Country> production_countries = new ArrayList<>();
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
 
     public Float getPopularity() {
         return popularity;
@@ -86,6 +97,28 @@ public class SpecificData {
         }
     }
     class Language{
+        String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+    class Company{
+        String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+    class Country{
         String name;
 
         public String getName() {
