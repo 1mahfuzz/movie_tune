@@ -38,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
 
+
     }
 
     private void iniView() {
