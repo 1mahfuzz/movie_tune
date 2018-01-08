@@ -1,5 +1,7 @@
 package com.mahfuz.movietune;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -28,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                finish();
+                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+            }
+        },2500);
     }
 
     private void iniView() {
