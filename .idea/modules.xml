@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://M:\android_challenges\movie_tune\app\app.iml" filepath="M:\android_challenges\movie_tune\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/movie_tune.iml" filepath="$PROJECT_DIR$/movie_tune.iml" />
-      <module fileurl="file://M:\android_challenges\movie_tune\movie_tune.iml" filepath="M:\android_challenges\movie_tune\movie_tune.iml" />
     </modules>
   </component>
 </project>

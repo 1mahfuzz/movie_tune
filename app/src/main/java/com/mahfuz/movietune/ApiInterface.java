@@ -12,4 +12,10 @@ public interface ApiInterface {
     @GET("now_playing?api_key="+MainActivity.API_KEY)
     Call<ApiResponse> getNewReleaseData();
 
+    @GET("top_rated?api_key="+MainActivity.API_KEY)
+    Call<ApiResponse> getTopRatedData();
+
+    @GET("upcoming?api_key="+MainActivity.API_KEY)
+    Call<ApiResponse> getUpcomingData();
+
 }
