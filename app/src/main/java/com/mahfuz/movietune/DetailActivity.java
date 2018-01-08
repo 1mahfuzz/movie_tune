@@ -50,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         iniView();
         hideVisibility();
+        progressBar.setVisibility(View.VISIBLE);
         String movieId = getIntent().getStringExtra("id");
         Log.d(MainActivity.TAG, "onCreate: "+movieId);
 
@@ -64,6 +65,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SpecificData> call, Response<SpecificData> response) {
                 showVisibility();
+                progressBar.setVisibility(View.GONE);
                 SpecificData result = response.body();
                 StringBuilder genres = new StringBuilder();
                 String imagePath = "http://image.tmdb.org/t/p/w500/"
@@ -130,8 +132,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void hideVisibility() {
-
-        progressBar.setVisibility(View.VISIBLE);
         mImageView.setVisibility(View.INVISIBLE);
         mTitleView.setVisibility(View.INVISIBLE);
         mGenresView.setVisibility(View.INVISIBLE);
@@ -148,7 +148,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void showVisibility(){
-        progressBar.setVisibility(View.GONE);
         mImageView.setVisibility(View.VISIBLE);
         mTitleView.setVisibility(View.VISIBLE);
         mGenresView.setVisibility(View.VISIBLE);

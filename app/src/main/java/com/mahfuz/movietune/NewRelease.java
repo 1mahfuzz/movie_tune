@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class NewRelease extends Fragment {
     RecyclerView mRecyclerView;
     List<String> id = new ArrayList<>();
     List<String> poster_path = new ArrayList<>();
+    ProgressBar progressBar;
 
 
     public NewRelease() {
@@ -52,7 +54,7 @@ public class NewRelease extends Fragment {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-
+                progressBar.setVisibility(View.GONE);
                 ApiResponse apiResponse = response.body();
                 for (int i=0; i<apiResponse.getResult().size(); i++){
                     String list_id = apiResponse.getResult().get(i).getId();
@@ -80,6 +82,7 @@ public class NewRelease extends Fragment {
     private void iniView(View view) {
 
         mRecyclerView = view.findViewById(R.id.recyclerView);
+        progressBar = view.findViewById(R.id.loadingBar);
     }
 
 }
