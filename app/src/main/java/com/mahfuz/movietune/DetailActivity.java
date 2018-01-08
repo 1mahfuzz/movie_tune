@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,11 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         getSupportActionBar().hide();
         iniView();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        hideVisibility();
         String movieId = getIntent().getStringExtra("id");
         Log.d(MainActivity.TAG, "onCreate: "+movieId);
 
@@ -66,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<SpecificData>() {
             @Override
             public void onResponse(Call<SpecificData> call, Response<SpecificData> response) {
+                showVisibility();
                 SpecificData result = response.body();
                 StringBuilder genres = new StringBuilder();
                 String imagePath = "http://image.tmdb.org/t/p/w500/"
@@ -108,7 +106,6 @@ public class DetailActivity extends AppCompatActivity {
         call2.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-
                 ApiResponse apiResponse = response.body();
                 for (int i=0; i<apiResponse.getResult().size(); i++){
                     String list_id = apiResponse.getResult().get(i).getId();
@@ -131,6 +128,41 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void hideVisibility() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        mImageView.setVisibility(View.INVISIBLE);
+        mTitleView.setVisibility(View.INVISIBLE);
+        mGenresView.setVisibility(View.INVISIBLE);
+        mVoteAvgView.setVisibility(View.INVISIBLE);
+        mPopularityView.setVisibility(View.INVISIBLE);
+        mDescriptionView.setVisibility(View.INVISIBLE);
+        mProductionCompany.setVisibility(View.INVISIBLE);
+        mProductionCountry.setVisibility(View.INVISIBLE);
+        mBudgetView.setVisibility(View.INVISIBLE);
+        mLanguage.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void showVisibility(){
+        progressBar.setVisibility(View.GONE);
+        mImageView.setVisibility(View.VISIBLE);
+        mTitleView.setVisibility(View.VISIBLE);
+        mGenresView.setVisibility(View.VISIBLE);
+        mVoteAvgView.setVisibility(View.VISIBLE);
+        mPopularityView.setVisibility(View.VISIBLE);
+        mDescriptionView.setVisibility(View.VISIBLE);
+        mProductionCompany.setVisibility(View.VISIBLE);
+        mProductionCountry.setVisibility(View.VISIBLE);
+        mBudgetView.setVisibility(View.VISIBLE);
+        mLanguage.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
 
     private void iniView() {
 
