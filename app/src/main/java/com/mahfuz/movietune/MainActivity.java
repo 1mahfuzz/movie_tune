@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                finish();
-                startActivity(new Intent(MainActivity.this,DetailActivity.class));
-            }
-        },2500);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                finish();
+//                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+//            }
+//        },2500);
     }
 
     private void iniView() {

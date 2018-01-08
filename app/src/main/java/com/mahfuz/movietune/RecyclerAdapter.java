@@ -1,6 +1,7 @@
 package com.mahfuz.movietune;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,14 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
             super(itemView);
 
             mImageView = itemView.findViewById(R.id.imageView);
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext,DetailActivity.class);
+                    intent.putExtra("id",ids.get(getPosition()));
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

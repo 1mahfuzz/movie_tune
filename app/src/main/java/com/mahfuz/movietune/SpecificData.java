@@ -1,7 +1,5 @@
 package com.mahfuz.movietune;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,31 +9,44 @@ import java.util.List;
 
 public class SpecificData {
 
-    String title;
-    @SerializedName("backdrop_path")
-    String imagePath;
+    String original_title;
+    String backdrop_path;
     String budget;
-    @SerializedName("vote_average")
-    int voteAvg;
-    int popularity;
+    String vote_average;
+    Float popularity;
     List<Genres> genres = new ArrayList<>();
-    @SerializedName("spoken_languages")
-    List<Language> language = new ArrayList<>();
+    List<Language> spoken_languages = new ArrayList<>();
 
-    public String getTitle() {
-        return title;
+    public Float getPopularity() {
+        return popularity;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPopularity(Float popularity) {
+        this.popularity = popularity;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getOriginal_title() {
+        return original_title;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 
     public String getBudget() {
@@ -46,22 +57,6 @@ public class SpecificData {
         this.budget = budget;
     }
 
-    public int getVoteAvg() {
-        return voteAvg;
-    }
-
-    public void setVoteAvg(int voteAvg) {
-        this.voteAvg = voteAvg;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
-    }
-
     public List<Genres> getGenres() {
         return genres;
     }
@@ -70,12 +65,12 @@ public class SpecificData {
         this.genres = genres;
     }
 
-    public List<Language> getLanguage() {
-        return language;
+    public List<Language> getSpoken_languages() {
+        return spoken_languages;
     }
 
-    public void setLanguage(List<Language> language) {
-        this.language = language;
+    public void setSpoken_languages(List<Language> spoken_languages) {
+        this.spoken_languages = spoken_languages;
     }
 
     class Genres{
