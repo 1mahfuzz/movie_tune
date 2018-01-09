@@ -68,7 +68,7 @@ public class NewRelease extends Fragment {
                 }
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
                 mRecyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-                mRecyclerView.setAdapter(new RecyclerAdapter(getActivity(),id,poster_path));
+                mRecyclerView.setAdapter(new RecyclerAdapter(getActivity(),id,poster_path,true));
                 progressBar.setVisibility(View.GONE);
 
             }

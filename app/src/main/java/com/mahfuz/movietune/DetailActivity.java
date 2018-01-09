@@ -84,7 +84,7 @@ public class DetailActivity extends AppCompatActivity {
                         //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
                     }
                 }
-
+                try {
                 double popularity = result.getPopularity();
                 Picasso.with(getApplicationContext())
                         .load(imagePath).into(mImageView);
@@ -96,12 +96,15 @@ public class DetailActivity extends AppCompatActivity {
                 mBudgetView.setText("$"+result.getBudget());
                 mVoteAvgView.setText(""+Math.ceil(result.getVote_average()));
                 mProductionCompany.setText(result.production_companies.get(0).getName());
-
                 if (result.production_countries.get(0).getName().equals("United States of America")){
                     mProductionCountry.setText("USA");
                 }else {
                     mProductionCountry.setText(result.production_countries.get(0).getName());
                 }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
 
             }
 
@@ -125,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
                     poster_path.add(path);
                     Log.d(MainActivity.TAG, "onResponse: "+list_id);
                 }
-                mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(),id,poster_path));
+                mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(),id,poster_path,false));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                         LinearLayoutManager.HORIZONTAL,false));
 

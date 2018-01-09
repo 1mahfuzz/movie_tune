@@ -65,7 +65,7 @@ public class TopRated extends Fragment {
                     poster_path.add(path);
                     Log.d(MainActivity.TAG, "onResponse: "+list_id);
                 }
-                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
+                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path,true));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
             }
