@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -95,7 +96,13 @@ public class DetailActivity extends AppCompatActivity {
                 mBudgetView.setText("$"+result.getBudget());
                 mVoteAvgView.setText(""+Math.ceil(result.getVote_average()));
                 mProductionCompany.setText(result.production_companies.get(0).getName());
-                mProductionCountry.setText(result.production_countries.get(0).getName());
+
+                if (result.production_countries.get(0).getName().equals("United States of America")){
+                    mProductionCountry.setText("USA");
+                }else {
+                    mProductionCountry.setText(result.production_countries.get(0).getName());
+                }
+
             }
 
             @Override
@@ -162,7 +169,6 @@ public class DetailActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-
     private void iniView() {
 
         mImageView = findViewById(R.id.mainImage);
@@ -177,5 +183,6 @@ public class DetailActivity extends AppCompatActivity {
         mLanguage = findViewById(R.id.language);
         mRecyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.loadingBar);
+        mDescriptionView.setMovementMethod(new ScrollingMovementMethod());
     }
 }

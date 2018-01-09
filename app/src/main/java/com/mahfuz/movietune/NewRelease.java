@@ -1,6 +1,7 @@
 package com.mahfuz.movietune;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -54,7 +55,7 @@ public class NewRelease extends Fragment {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                progressBar.setVisibility(View.GONE);
+
                 ApiResponse apiResponse = response.body();
                 for (int i=0; i<apiResponse.getResult().size(); i++){
                     String list_id = apiResponse.getResult().get(i).getId();
@@ -65,8 +66,10 @@ public class NewRelease extends Fragment {
                     poster_path.add(path);
                     Log.d(MainActivity.TAG, "onResponse: "+list_id);
                 }
-                mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path));
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                mRecyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+                mRecyclerView.setAdapter(new RecyclerAdapter(getActivity(),id,poster_path));
+                progressBar.setVisibility(View.GONE);
 
             }
 
@@ -84,5 +87,4 @@ public class NewRelease extends Fragment {
         mRecyclerView = view.findViewById(R.id.recyclerView);
         progressBar = view.findViewById(R.id.loadingBar);
     }
-
 }
