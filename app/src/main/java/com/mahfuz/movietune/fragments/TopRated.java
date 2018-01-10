@@ -1,4 +1,4 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.fragments;
 
 
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.mahfuz.movietune.activity.MainActivity;
+import com.mahfuz.movietune.R;
+import com.mahfuz.movietune.adapter.RecyclerAdapter;
+import com.mahfuz.movietune.apiRelated.ApiInterface;
+import com.mahfuz.movietune.model.ApiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +50,9 @@ public class TopRated extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_rated, container, false);
         iniView(view);
 
-        Log.d(MainActivity.TAG, "onCreateView: ");
+        Log.d(MainActivity.sTAG, "onCreateView: ");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(MainActivity.sBASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
@@ -60,10 +66,10 @@ public class TopRated extends Fragment {
                     String list_id = apiResponse.getResult().get(i).getId();
                     String path = "http://image.tmdb.org/t/p/w500/"
                             +apiResponse.getResult().get(i).getPoster_path()
-                            +"?api_key="+MainActivity.API_KEY;
+                            +"?api_key="+MainActivity.sAPI_KEY;
                     id.add(list_id);
                     poster_path.add(path);
-                    Log.d(MainActivity.TAG, "onResponse: "+list_id);
+                    Log.d(MainActivity.sTAG, "onResponse: "+list_id);
                 }
                 mRecyclerView.setAdapter(new RecyclerAdapter(getContext(),id,poster_path,true));
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -72,7 +78,7 @@ public class TopRated extends Fragment {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                Log.d(MainActivity.TAG, "onFailure: ");
+                Log.d(MainActivity.sTAG, "onFailure: ");
             }
         });
 

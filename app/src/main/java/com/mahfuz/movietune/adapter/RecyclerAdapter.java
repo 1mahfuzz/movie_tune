@@ -1,4 +1,4 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.mahfuz.movietune.activity.DetailActivity;
+import com.mahfuz.movietune.activity.MainActivity;
+import com.mahfuz.movietune.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by mahfuz on 7/1/18.
  */
 
-class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
     Context mContext;
     List<String> imageUrls = Collections.emptyList();
@@ -29,7 +30,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
 
     public RecyclerAdapter(Context context, List<String> id, List<String> poster_path,boolean notDetailsActivity) {
         this.mContext = context;
-        Log.d(MainActivity.TAG, "RecyclerAdapter: "+mContext);
+        Log.d(MainActivity.sTAG, "RecyclerAdapter: "+mContext);
         this.ids = id;
         this.imageUrls = poster_path;
         this.notDetailsActivity = notDetailsActivity;

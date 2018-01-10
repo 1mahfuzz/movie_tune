@@ -1,4 +1,4 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ApiResponse {
         this.results = result;
     }
 
-    class Result{
+    public class Result{
 
         private String id;
 

@@ -1,4 +1,4 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,22 @@ public class SpecificData {
     String overview;
     List<Company> production_companies = new ArrayList<>();
     List<Country> production_countries = new ArrayList<>();
+
+    public List<Country> getProduction_countries() {
+        return production_countries;
+    }
+
+    public void setProduction_countries(List<Country> production_countries) {
+        this.production_countries = production_countries;
+    }
+
+    public List<Company> getProduction_companies() {
+        return production_companies;
+    }
+
+    public void setProduction_companies(List<Company> production_companies) {
+        this.production_companies = production_companies;
+    }
 
     public double getVote_average() {
         return vote_average;
@@ -85,7 +101,7 @@ public class SpecificData {
         this.spoken_languages = spoken_languages;
     }
 
-    class Genres{
+    public class Genres{
 
         String name;
 
@@ -97,7 +113,7 @@ public class SpecificData {
             this.name = name;
         }
     }
-    class Language{
+    public class Language{
         String name;
 
         public String getName() {
@@ -108,7 +124,7 @@ public class SpecificData {
             this.name = name;
         }
     }
-    class Company{
+    public class Company{
         String name;
 
         public String getName() {
@@ -119,7 +135,7 @@ public class SpecificData {
             this.name = name;
         }
     }
-    class Country{
+    public class Country{
         String name;
 
         public String getName() {

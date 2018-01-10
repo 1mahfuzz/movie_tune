@@ -1,9 +1,11 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.mahfuz.movietune.R;
 
 public class SplashActivity extends AppCompatActivity {
 

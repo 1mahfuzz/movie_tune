@@ -1,8 +1,7 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
@@ -11,8 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.mahfuz.movietune.R;
+import com.mahfuz.movietune.model.SpecificData;
+import com.mahfuz.movietune.adapter.RecyclerAdapter;
+import com.mahfuz.movietune.apiRelated.ApiInterface;
+import com.mahfuz.movietune.model.ApiResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,10 +56,10 @@ public class DetailActivity extends AppCompatActivity {
         hideVisibility();
         progressBar.setVisibility(View.VISIBLE);
         String movieId = getIntent().getStringExtra("id");
-        Log.d(MainActivity.TAG, "onCreate: " + movieId);
+        Log.d(MainActivity.sTAG, "onCreate: " + movieId);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(MainActivity.sBASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -71,17 +74,17 @@ public class DetailActivity extends AppCompatActivity {
                 StringBuilder genres = new StringBuilder();
                 String imagePath = "http://image.tmdb.org/t/p/w500/"
                         + result.getBackdrop_path()
-                        + "?api_key=" + MainActivity.API_KEY;
+                        + "?api_key=" + MainActivity.sAPI_KEY;
 
                 if (result.getGenres().size() < 3) {
                     for (int i = 0; i < result.getGenres().size(); i++) {
                         genres.append(result.getGenres().get(i).getName() + ",");
-                        //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
+                        //Log.d(MainActivity.sTAG, "onResponse: Genres: "+genres);
                     }
                 } else {
                     for (int i = 0; i < 3; i++) {
                         genres.append(result.getGenres().get(i).getName() + ",");
-                        //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
+                        //Log.d(MainActivity.sTAG, "onResponse: Genres: "+genres);
                     }
                 }
                 try {
@@ -95,11 +98,11 @@ public class DetailActivity extends AppCompatActivity {
                     mGenresView.setText(genres);
                     mBudgetView.setText("$" + result.getBudget());
                     mVoteAvgView.setText("" + Math.ceil(result.getVote_average()));
-                    mProductionCompany.setText(result.production_companies.get(0).getName());
-                    if (result.production_countries.get(0).getName().equals("United States of America")) {
+                    mProductionCompany.setText(result.getProduction_companies().get(0).getName());
+                    if (result.getProduction_countries().get(0).getName().equals("United States of America")) {
                         mProductionCountry.setText("USA");
                     } else {
-                        mProductionCountry.setText(result.production_countries.get(0).getName());
+                        mProductionCountry.setText(result.getProduction_countries().get(0).getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -121,10 +124,10 @@ public class DetailActivity extends AppCompatActivity {
                     String list_id = apiResponse.getResult().get(i).getId();
                     String path = "http://image.tmdb.org/t/p/w500/"
                             + apiResponse.getResult().get(i).getPoster_path()
-                            + "?api_key=" + MainActivity.API_KEY;
+                            + "?api_key=" + MainActivity.sAPI_KEY;
                     id.add(list_id);
                     poster_path.add(path);
-                    Log.d(MainActivity.TAG, "onResponse: " + list_id);
+                    Log.d(MainActivity.sTAG, "onResponse: " + list_id);
                 }
                 mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), id, poster_path, false));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
@@ -134,7 +137,7 @@ public class DetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                Log.d(MainActivity.TAG, "onFailure: ");
+                Log.d(MainActivity.sTAG, "onFailure: ");
             }
         });
     }

@@ -1,8 +1,12 @@
-package com.mahfuz.movietune;
+package com.mahfuz.movietune.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.mahfuz.movietune.fragments.NewRelease;
+import com.mahfuz.movietune.fragments.TopRated;
+import com.mahfuz.movietune.fragments.Upcoming;
 
 /**
  * Created by mahfuz on 7/1/18.
