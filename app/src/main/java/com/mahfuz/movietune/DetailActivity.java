@@ -53,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
         hideVisibility();
         progressBar.setVisibility(View.VISIBLE);
         String movieId = getIntent().getStringExtra("id");
-        Log.d(MainActivity.TAG, "onCreate: "+movieId);
+        Log.d(MainActivity.TAG, "onCreate: " + movieId);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.BASE_URL)
@@ -70,42 +70,40 @@ public class DetailActivity extends AppCompatActivity {
                 SpecificData result = response.body();
                 StringBuilder genres = new StringBuilder();
                 String imagePath = "http://image.tmdb.org/t/p/w500/"
-                        +result.getBackdrop_path()
-                        +"?api_key="+MainActivity.API_KEY;
+                        + result.getBackdrop_path()
+                        + "?api_key=" + MainActivity.API_KEY;
 
-                if (result.getGenres().size() < 3){
-                    for (int i=0; i<result.getGenres().size() ; i++){
-                        genres.append(result.getGenres().get(i).getName()+",");
+                if (result.getGenres().size() < 3) {
+                    for (int i = 0; i < result.getGenres().size(); i++) {
+                        genres.append(result.getGenres().get(i).getName() + ",");
                         //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
                     }
-                }else {
+                } else {
                     for (int i = 0; i < 3; i++) {
                         genres.append(result.getGenres().get(i).getName() + ",");
                         //Log.d(MainActivity.TAG, "onResponse: Genres: "+genres);
                     }
                 }
                 try {
-                double popularity = result.getPopularity();
-                Picasso.with(getApplicationContext())
-                        .load(imagePath).into(mImageView);
-                mDescriptionView.setText(result.getOverview());
-                mPopularityView.setText(""+Math.ceil(popularity)+"%");
-                mTitleView.setText(result.getOriginal_title());
-                mLanguage.setText(result.getSpoken_languages().get(0).getName());
-                mGenresView.setText(genres);
-                mBudgetView.setText("$"+result.getBudget());
-                mVoteAvgView.setText(""+Math.ceil(result.getVote_average()));
-                mProductionCompany.setText(result.production_companies.get(0).getName());
-                if (result.production_countries.get(0).getName().equals("United States of America")){
-                    mProductionCountry.setText("USA");
-                }else {
-                    mProductionCountry.setText(result.production_countries.get(0).getName());
-                }
-                }catch (Exception e){
+                    double popularity = result.getPopularity();
+                    Picasso.with(getApplicationContext())
+                            .load(imagePath).into(mImageView);
+                    mDescriptionView.setText(result.getOverview());
+                    mPopularityView.setText("" + Math.ceil(popularity) + "%");
+                    mTitleView.setText(result.getOriginal_title());
+                    mLanguage.setText(result.getSpoken_languages().get(0).getName());
+                    mGenresView.setText(genres);
+                    mBudgetView.setText("$" + result.getBudget());
+                    mVoteAvgView.setText("" + Math.ceil(result.getVote_average()));
+                    mProductionCompany.setText(result.production_companies.get(0).getName());
+                    if (result.production_countries.get(0).getName().equals("United States of America")) {
+                        mProductionCountry.setText("USA");
+                    } else {
+                        mProductionCountry.setText(result.production_countries.get(0).getName());
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
@@ -119,18 +117,18 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 ApiResponse apiResponse = response.body();
-                for (int i=0; i<apiResponse.getResult().size(); i++){
+                for (int i = 0; i < apiResponse.getResult().size(); i++) {
                     String list_id = apiResponse.getResult().get(i).getId();
                     String path = "http://image.tmdb.org/t/p/w500/"
-                            +apiResponse.getResult().get(i).getPoster_path()
-                            +"?api_key="+MainActivity.API_KEY;
+                            + apiResponse.getResult().get(i).getPoster_path()
+                            + "?api_key=" + MainActivity.API_KEY;
                     id.add(list_id);
                     poster_path.add(path);
-                    Log.d(MainActivity.TAG, "onResponse: "+list_id);
+                    Log.d(MainActivity.TAG, "onResponse: " + list_id);
                 }
-                mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(),id,poster_path,false));
+                mRecyclerView.setAdapter(new RecyclerAdapter(getApplicationContext(), id, poster_path, false));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
-                        LinearLayoutManager.HORIZONTAL,false));
+                        LinearLayoutManager.HORIZONTAL, false));
 
             }
 
@@ -157,7 +155,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    public void showVisibility(){
+    public void showVisibility() {
         mImageView.setVisibility(View.VISIBLE);
         mTitleView.setVisibility(View.VISIBLE);
         mGenresView.setVisibility(View.VISIBLE);
@@ -178,7 +176,7 @@ public class DetailActivity extends AppCompatActivity {
         mTitleView = findViewById(R.id.title);
         mGenresView = findViewById(R.id.genres);
         mVoteAvgView = findViewById(R.id.voteAvg);
-        mPopularityView  = findViewById(R.id.popularity);
+        mPopularityView = findViewById(R.id.popularity);
         mDescriptionView = findViewById(R.id.description);
         mProductionCompany = findViewById(R.id.productionCompany);
         mProductionCountry = findViewById(R.id.productionCountry);
